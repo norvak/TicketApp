@@ -1,0 +1,149 @@
+.no-padding {
+    padding: 0;
+  }
+  .no-margin {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .padding-list {
+    padding: 0;
+  }
+  .margin-checkbox {
+    margin-top: 0;
+  }
+  
+  .margin-card {
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  
+  .font-resp {
+    font-size: 0.6em !important;
+    padding: 1px !important;
+  }
+  
+  .padding-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  
+  .padding-column {
+    padding: 5px !important;
+  }
+  
+  .padding-container-principal {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  .no-padding-column-selection {
+    padding-top: 0 !important;
+  }
+  
+  .add-padding-cards {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  
+  .card-color {
+    max-height: 10px !important;
+    min-height: 10px !important;
+    max-width: 10px !important;
+    min-width: 10px !important;
+    padding: 7px !important;
+    margin-top: 5px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .card-col {
+    padding-bottom: 40px !important;
+  }
+  
+  .font-color {
+    color: whitesmoke;
+  }
+  
+  .card-list {
+    min-height: 60vh;
+    max-height: 60vh;
+  }
+  
+  /* animacion */
+  /* aparecer y desaparecer */
+  .is-unselected {
+    transform: translate(10px);
+    animation: sort_clear .5s ease -.3s 1 normal;
+  }
+  
+  .is-selected {
+      animation: sort_selected 2s ease -.1s 1 forwards;
+  }
+  
+  @keyframes sort_clear {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  
+    85% {
+      transform: scale(.7);
+      opacity: 0;
+    }
+  
+    99% {
+      transform: scale(.7);
+      opacity: 0;
+    }
+  
+    100% {
+      transform: scale(.7);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes sort_selected {
+    0% {
+      opacity: 0;
+    }
+  
+    1% {
+      opacity: 0.5;
+      transform: translateZ(5px);
+      transform: scale(.7);
+    }
+  
+    20% {
+      transform: scale(.8);
+      transform: translateZ(10px);
+      opacity: 1;
+    }
+  
+    100% {
+      transform: scale(1);
+      transform: translateZ(0px);
+    }
+  }
+  
+  /* moving */
+  .item {
+    transition: all 1s ease-out, opacity 1s;
+  }
+  
+  .moving {
+    opacity: 0.25;
+    z-index: 10;
+  }
+  
+  /* otra forma de animar */
+  /* otra animacion */
+  .item-card-enter-active {
+    transition: all .75s ease-out;
+  }
+  .item-card-leave-active {
+    transition: all .75s ease-out;
+  }
+  .item-card-enter, .item-card-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateY(30px);
+    opacity: 0;
+  }
