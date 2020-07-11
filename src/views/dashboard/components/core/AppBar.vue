@@ -31,7 +31,7 @@
     <v-toolbar-title
       class="hidden-sm-and-down"
     >
-      {{ "DynamicFilter" }}
+      {{ "TicketApp" }}
     </v-toolbar-title>
 
     <v-spacer />
