@@ -1,5 +1,5 @@
 <template>
-  <v-container
+  <!-- <v-container
     v-if="valid"
     id="dashboard"
     fluid
@@ -269,6 +269,18 @@
         {{ 'Esperando datos' }}
       </v-card-title>
     </v-card>
+  </v-container> -->
+  <v-container
+    id="test"
+    fluid
+  >
+    <v-card
+      color="#F2F2F2"
+    >
+      <v-card-title>
+        Tickets
+      </v-card-title>
+    </v-card>
   </v-container>
 </template>
 
@@ -292,135 +304,139 @@
         entry: [],
         valid: false,
         sortList: null,
+        data: null,
         URL: 'https://pivottableview.blob.core.windows.net/muck/getticket.json',
       }
     },
     computed: {
-      dialog () {
-        return new Array(this.entryFinal.length)
-      },
+      // dialog () {
+      //   return new Array(this.entryFinal.length)
+      // },
     },
     watch: {
-      filterItems (a, b) {
-        var arr = this.entry
-        this.selectFilter = []
-        this.body = []
-        var data = []
-        var entry = []
-        this.entryFinal = []
-        a.map(function (x) {
-          var body = []
-          arr.forEach((key, i) => {
-            var data = Object.keys(key.content['m:properties'])
-            const result = data.filter(element => element === 'd:' + x.title)
+      // filterItems (a, b) {
+      //   var arr = this.entry
+      //   this.selectFilter = []
+      //   this.body = []
+      //   var data = []
+      //   var entry = []
+      //   this.entryFinal = []
+      //   a.map(function (x) {
+      //     var body = []
+      //     arr.forEach((key, i) => {
+      //       var data = Object.keys(key.content['m:properties'])
+      //       const result = data.filter(element => element === 'd:' + x.title)
 
-            // init color
-            const hBase = Math.random()
-            const newL = (Math.floor(Math.random() * 16) + 75) * 0.01
-            var r, g, b
-            const rd = (a) => {
-              return Math.floor(Math.max(Math.min(a * 256, 255), 0))
-            }
-            const hueToRGB = (m, n, o) => {
-              if (o < 0) o += 1
-              if (o > 1) o -= 1
-              if (o < 1 / 6) return m + (n - m) * 6 * o
-              if (o < 1 / 2) return n
-              if (o < 2 / 3) return m + (n - m) * (4 - o * 6)
-              return m
-            }
-            const q = newL < 0.5 ? newL * 2 : 1
-            const p = 2 * newL - q
-            r = hueToRGB(p, q, hBase + (1 / 3))
-            g = hueToRGB(p, q, hBase)
-            b = hueToRGB(p, q, hBase - (1 / 3))
-            var c = `#${rd(r).toString(16)}${rd(g).toString(16)}${rd(b).toString(16)}`
-            // end color
+      //       // init color
+      //       const hBase = Math.random()
+      //       const newL = (Math.floor(Math.random() * 16) + 75) * 0.01
+      //       var r, g, b
+      //       const rd = (a) => {
+      //         return Math.floor(Math.max(Math.min(a * 256, 255), 0))
+      //       }
+      //       const hueToRGB = (m, n, o) => {
+      //         if (o < 0) o += 1
+      //         if (o > 1) o -= 1
+      //         if (o < 1 / 6) return m + (n - m) * 6 * o
+      //         if (o < 1 / 2) return n
+      //         if (o < 2 / 3) return m + (n - m) * (4 - o * 6)
+      //         return m
+      //       }
+      //       const q = newL < 0.5 ? newL * 2 : 1
+      //       const p = 2 * newL - q
+      //       r = hueToRGB(p, q, hBase + (1 / 3))
+      //       g = hueToRGB(p, q, hBase)
+      //       b = hueToRGB(p, q, hBase - (1 / 3))
+      //       var c = `#${rd(r).toString(16)}${rd(g).toString(16)}${rd(b).toString(16)}`
+      //       // end color
 
-            if (result.length > 0) {
-              var salario = Object.keys(key.content['m:properties'][result])
-              if (salario[1] === '#text') {
-                var money = key.content['m:properties'][result]
-                const valid = body.filter(e => e.name === money['#text'])
-                if (valid.length === 0) {
-                  body.push({
-                    name: money['#text'],
-                    value: null,
-                    color: c,
-                  })
-                }
-              } else {
-                const validName = body.filter(e => e.name === key.content['m:properties'][result])
-                if (validName.length === 0) {
-                  body.push({
-                    name: key.content['m:properties'][result],
-                    value: null,
-                    color: c,
-                  })
-                }
-              }
-            }
-          })
-          data.push({
-            title: x.title,
-            column: {
-              name: 'Columna',
-              value: null,
-            },
-            color: {
-              name: 'Color',
-              value: null,
-            },
-            body: body,
-          })
-        })
-        const removeItems = ['d:PartitionKey', 'd:RowKey', 'd:Timestamp']
-        arr.forEach((key, i) => {
-          var data = Object.keys(key.content['m:properties'])
-          // eslint-disable-next-line no-new-object
-          var salida = new Object()
-          for (let index = 0; index < data.length; index++) {
-            this.titles.forEach((element, e) => {
-              salida[element.title] = key.content['m:properties']['d:' + element.title]
-            })
-          }
-          salida = this.formatObj(salida, removeItems)
-          entry.push(salida)
-        })
-        entry.map(function (params) {
-          params = Object.assign(params, { color: null })
-          // eslint-disable-next-line dot-notation
-          if (params['Salario']) {
-            // eslint-disable-next-line dot-notation
-            params['Salario'] = params['Salario']['#text']
-          }
-        })
-        this.body = entry
-        this.selectFilter = data
-        this.changeSelect = []
-      },
+      //       if (result.length > 0) {
+      //         var salario = Object.keys(key.content['m:properties'][result])
+      //         if (salario[1] === '#text') {
+      //           var money = key.content['m:properties'][result]
+      //           const valid = body.filter(e => e.name === money['#text'])
+      //           if (valid.length === 0) {
+      //             body.push({
+      //               name: money['#text'],
+      //               value: null,
+      //               color: c,
+      //             })
+      //           }
+      //         } else {
+      //           const validName = body.filter(e => e.name === key.content['m:properties'][result])
+      //           if (validName.length === 0) {
+      //             body.push({
+      //               name: key.content['m:properties'][result],
+      //               value: null,
+      //               color: c,
+      //             })
+      //           }
+      //         }
+      //       }
+      //     })
+      //     data.push({
+      //       title: x.title,
+      //       column: {
+      //         name: 'Columna',
+      //         value: null,
+      //       },
+      //       color: {
+      //         name: 'Color',
+      //         value: null,
+      //       },
+      //       body: body,
+      //     })
+      //   })
+      //   const removeItems = ['d:PartitionKey', 'd:RowKey', 'd:Timestamp']
+      //   arr.forEach((key, i) => {
+      //     var data = Object.keys(key.content['m:properties'])
+      //     // eslint-disable-next-line no-new-object
+      //     var salida = new Object()
+      //     for (let index = 0; index < data.length; index++) {
+      //       this.titles.forEach((element, e) => {
+      //         salida[element.title] = key.content['m:properties']['d:' + element.title]
+      //       })
+      //     }
+      //     salida = this.formatObj(salida, removeItems)
+      //     entry.push(salida)
+      //   })
+      //   entry.map(function (params) {
+      //     params = Object.assign(params, { color: null })
+      //     // eslint-disable-next-line dot-notation
+      //     if (params['Salario']) {
+      //       // eslint-disable-next-line dot-notation
+      //       params['Salario'] = params['Salario']['#text']
+      //     }
+      //   })
+      //   this.body = entry
+      //   this.selectFilter = data
+      //   this.changeSelect = []
+      // },
     },
     async mounted () {
-      try {
-        const respData = await axios.get('http://www.mocky.io/v2/5e9a015c3300003e267b2e3d')
-        this.resp_data = respData.data.data.entry
-        this.entry = respData.data.data.entry
-        this.valid = true
-      } catch (error) {
-        console.error(error)
-        this.valid = false
-      }
-      this.valid = false
-      this.headersTitle()
+      console.log('mounted')
+      this.data = require('../../data/data.json')
+      console.log('data', this.data)
+      // try {
+      //   const respData = await axios.get('http://www.mocky.io/v2/5e9a015c3300003e267b2e3d')
+      //   this.resp_data = respData.data.data.entry
+      //   this.entry = respData.data.data.entry
+      //   this.valid = true
+      // } catch (error) {
+      //   console.error(error)
+      //   this.valid = false
+      // }
+      // this.valid = false
+      // this.headersTitle()
 
-      this.loadData()
+      // this.loadData()
       // this.loadTest()
     },
     beforeUpdate () {
-      this.animationUnselect()
+      // this.animationUnselect()
     },
     updated () {
-      this.animationSelect()
+      // this.animationSelect()
     },
     methods: {
 
