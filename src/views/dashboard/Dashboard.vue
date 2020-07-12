@@ -400,7 +400,12 @@
         this.changeSelect = []
       },
     },
-    mounted () {
+    async mounted () {
+      console.log('mounted')
+      this.data = require('../../data/data.json')
+      this.removeFields(this.data.value)
+      console.log('data', this.data)
+
       // try {
       // const respData = await axios.get('https://pivottableview.blob.core.windows.net/muck/getticket.json')
       // const baseUrl = 'https://pivottableview.blob.core.windows.net/muck/getticket.json'
@@ -461,6 +466,63 @@
       this.animationSelect()
     },
     methods: {
+
+      removeFields (objects) {
+        objects.forEach(element => {
+          const propeties = Object.keys(element)
+          propeties.forEach((item, i) => {
+            // console.log(i, item)
+            if (item.includes('@') || item.includes('.')) {
+              // console.log('si')
+              delete element[item]
+            }
+          })
+        })
+      },
+
+      // -- Metodos para consumir el endpoint
+      async loadData () {
+        try {
+          const respData = await axios.get(this.URL, {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+              'Content-Type': 'application/json',
+            },
+            mode: 'no-cors',
+          })
+          console.error('respData', respData)
+        } catch (error) {
+          console.error(error)
+        }
+      },
+
+      loadTest () {
+        console.log('loadTest')
+        var miInit = {
+          method: 'GET',
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            Accept: 'application/json',
+            'Accept-Encoding': 'identity',
+            'Content-Type': 'application/json',
+          },
+          mode: 'no-cors',
+          cache: 'default',
+        }
+        const userAction = fetch(this.URL, miInit).then((resp) => resp.json())
+          .then(function (data) {
+            console.log('data', data)
+          })
+          .catch(function (error) {
+            console.log('error', error)
+          })
+        console.log('respData', userAction)
+      },
+
+      // ----
+
       headersTitle () {
         const keys = Object.keys(this.entry[0].content['m:properties'])
         keys.forEach(key => {
