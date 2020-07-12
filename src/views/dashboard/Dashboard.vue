@@ -416,7 +416,9 @@
     async mounted () {
       console.log('mounted')
       this.data = require('../../data/data.json')
+      this.removeFields(this.data.value)
       console.log('data', this.data)
+
       // try {
       //   const respData = await axios.get('http://www.mocky.io/v2/5e9a015c3300003e267b2e3d')
       //   this.resp_data = respData.data.data.entry
@@ -439,6 +441,19 @@
       // this.animationSelect()
     },
     methods: {
+
+      removeFields (objects) {
+        objects.forEach(element => {
+          const propeties = Object.keys(element)
+          propeties.forEach((item, i) => {
+            // console.log(i, item)
+            if (item.includes('@') || item.includes('.')) {
+              // console.log('si')
+              delete element[item]
+            }
+          })
+        })
+      },
 
       // -- Metodos para consumir el endpoint
       async loadData () {
