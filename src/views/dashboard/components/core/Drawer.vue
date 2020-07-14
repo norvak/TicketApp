@@ -21,8 +21,8 @@
     <v-list-item two-line>
       <v-list-item-content>
         <v-list-item-title class="text-uppercase font-weight-regular display-2">
-          <span class="logo-mini">{{ $t('ct') }}</span>
-          <span class="logo-normal">{{ $t('tim') }}</span>
+          <span class="logo-mini">{{ $t('ta.ta') }}</span>
+          <span class="logo-normal">{{ $t('ta.t_app') }}</span>
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -94,156 +94,160 @@
         },
         {
           group: '/pages',
-          icon: 'mdi-image',
-          title: 'pages',
-          children: [
-            {
-              title: 'pricing',
-              to: 'pricing',
-            },
-            {
-              title: 'rtl',
-              to: 'rtl',
-            },
-            {
-              title: 'timeline',
-              to: 'timeline',
-            },
-            {
-              title: 'login',
-              to: 'login',
-            },
-            {
-              title: 'register',
-              to: 'pricing',
-            },
-            {
-              title: 'lock',
-              to: 'lock',
-            },
-            {
-              title: 'user',
-              to: 'user',
-            },
-            {
-              title: 'error',
-              to: '404',
-            },
-          ],
+          icon: 'mdi-ticket',
+          title: 'ta.tickets',
+          // icon: 'mdi-image',
+          // title: 'pages',
+          // children: [
+          //   {
+          //     title: 'pricing',
+          //     to: 'pricing',
+          //   },
+          //   {
+          //     title: 'rtl',
+          //     to: 'rtl',
+          //   },
+          //   {
+          //     title: 'timeline',
+          //     to: 'timeline',
+          //   },
+          //   {
+          //     title: 'login',
+          //     to: 'login',
+          //   },
+          //   {
+          //     title: 'register',
+          //     to: 'pricing',
+          //   },
+          //   {
+          //     title: 'lock',
+          //     to: 'lock',
+          //   },
+          //   {
+          //     title: 'user',
+          //     to: 'user',
+          //   },
+          //   {
+          //     title: 'error',
+          //     to: '404',
+          //   },
+          // ],
         },
         {
           group: '/components',
-          icon: 'mdi-view-comfy',
-          title: 'components',
-          children: [
-            {
-              title: 'multi',
-              group: '',
-              children: [
-                {
-                  title: 'example',
-                  href: '#',
-                },
-              ],
-            },
-            {
-              title: 'buttons',
-              to: 'buttons',
-            },
-            {
-              title: 'grid',
-              to: 'grid-system',
-            },
-            {
-              title: 'tabs',
-              to: 'tabs',
-            },
-            {
-              title: 'notifications',
-              to: 'notifications',
-            },
-            {
-              title: 'icons',
-              to: 'icons',
-            },
-            {
-              title: 'typography',
-              to: 'typography',
-            },
-          ],
+          icon: 'mdi-sticker-plus',
+          title: 'ta.register_ticket',
+          // icon: 'mdi-view-comfy',
+          // title: 'components',
+          // children: [
+          //   {
+          //     title: 'multi',
+          //     group: '',
+          //     children: [
+          //       {
+          //         title: 'example',
+          //         href: '#',
+          //       },
+          //     ],
+          //   },
+          //   {
+          //     title: 'buttons',
+          //     to: 'buttons',
+          //   },
+          //   {
+          //     title: 'grid',
+          //     to: 'grid-system',
+          //   },
+          //   {
+          //     title: 'tabs',
+          //     to: 'tabs',
+          //   },
+          //   {
+          //     title: 'notifications',
+          //     to: 'notifications',
+          //   },
+          //   {
+          //     title: 'icons',
+          //     to: 'icons',
+          //   },
+          //   {
+          //     title: 'typography',
+          //     to: 'typography',
+          //   },
+          // ],
         },
-        {
-          group: '/forms',
-          icon: 'mdi-clipboard-outline',
-          title: 'forms',
-          children: [
-            {
-              title: 'rforms',
-              to: 'regular',
-            },
-            {
-              title: 'eforms',
-              to: 'extended',
-            },
-            {
-              title: 'vforms',
-              to: 'validation',
-            },
-            {
-              title: 'wizard',
-              to: 'wizard',
-            },
-          ],
-        },
-        {
-          group: '/tables',
-          icon: 'mdi-grid',
-          title: 'tables',
-          children: [
-            {
-              title: 'rtables',
-              to: 'regular-tables',
-            },
-            {
-              title: 'etables',
-              to: 'extended-tables',
-            },
-            {
-              title: 'dtables',
-              to: 'data-tables',
-            },
-          ],
-        },
-        {
-          group: '/maps',
-          icon: 'mdi-map-marker',
-          title: 'maps',
-          children: [
-            {
-              title: 'google',
-              to: 'google-maps',
-            },
-            {
-              title: 'fullscreen',
-              to: 'full-screen-map',
-            },
-          ],
-        },
-        {
-          icon: 'mdi-widgets',
-          title: 'widgets',
-          to: '/widgets',
-        },
-        {
-          icon: 'mdi-chart-timeline-variant',
-          title: 'charts',
-          to: '/charts',
-        },
-        {
-          icon: 'mdi-calendar-range',
-          title: 'calendar',
-          to: '/calendar',
-        },
+        // {
+        //   group: '/forms',
+        //   icon: 'mdi-clipboard-outline',
+        //   title: 'forms',
+        //   children: [
+        //     {
+        //       title: 'rforms',
+        //       to: 'regular',
+        //     },
+        //     {
+        //       title: 'eforms',
+        //       to: 'extended',
+        //     },
+        //     {
+        //       title: 'vforms',
+        //       to: 'validation',
+        //     },
+        //     {
+        //       title: 'wizard',
+        //       to: 'wizard',
+        //     },
+        //   ],
+        // },
+        // {
+        //   group: '/tables',
+        //   icon: 'mdi-grid',
+        //   title: 'tables',
+        //   children: [
+        //     {
+        //       title: 'rtables',
+        //       to: 'regular-tables',
+        //     },
+        //     {
+        //       title: 'etables',
+        //       to: 'extended-tables',
+        //     },
+        //     {
+        //       title: 'dtables',
+        //       to: 'data-tables',
+        //     },
+        //   ],
+        // },
+        // {
+        //   group: '/maps',
+        //   icon: 'mdi-map-marker',
+        //   title: 'maps',
+        //   children: [
+        //     {
+        //       title: 'google',
+        //       to: 'google-maps',
+        //     },
+        //     {
+        //       title: 'fullscreen',
+        //       to: 'full-screen-map',
+        //     },
+        //   ],
+        // },
+        // {
+        //   icon: 'mdi-widgets',
+        //   title: 'widgets',
+        //   to: '/widgets',
+        // },
+        // {
+        //   icon: 'mdi-chart-timeline-variant',
+        //   title: 'charts',
+        //   to: '/charts',
+        // },
+        // {
+        //   icon: 'mdi-calendar-range',
+        //   title: 'calendar',
+        //   to: '/calendar',
+        // },
       ],
     }),
 

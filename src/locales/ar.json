@@ -40,5 +40,11 @@
   "user": "ملف تعريفي للمستخدم",
   "vforms": "نماذج التحقق من الصحة",
   "widgets": "الحاجيات",
-  "wizard": "ساحر"
+  "wizard": "ساحر",
+  "ta": {
+    "ta": "TA",
+    "t_app": "Ticket App",
+    "tickets": "Tickets",
+    "register_ticket": "Registrar Ticket"
+  }
 }

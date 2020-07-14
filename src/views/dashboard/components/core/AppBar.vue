@@ -7,7 +7,7 @@
     height="75"
     style="width: auto;"
   >
-    <!-- <v-btn
+    <v-btn
       fab
       small
       @click="$vuetify.breakpoint.smAndDown ? setDrawer(!drawer) : $emit('input', !value)"
@@ -19,7 +19,7 @@
       <v-icon v-else>
         mdi-dots-vertical
       </v-icon>
-    </v-btn> -->
+    </v-btn>
 
     <!-- <v-toolbar-title
       class="hidden-sm-and-down"
@@ -28,15 +28,15 @@
 
     <!-- <v-spacer /> -->
 
-    <v-toolbar-title
-      class="hidden-sm-and-down"
+    <!-- <v-toolbar-title
+      class="hidden-sm-and-down ml-3"
     >
       {{ "TicketApp" }}
-    </v-toolbar-title>
+    </v-toolbar-title> -->
 
     <v-spacer />
 
-    <!-- <v-text-field
+    <v-text-field
       :label="$t('search')"
       color="secondary"
       hide-details
@@ -55,16 +55,16 @@
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
       </template>
-    </v-text-field> -->
+    </v-text-field>
 
     <div class="mx-3" />
 
-    <!-- <v-btn
+    <v-btn
       min-width="0"
       text
     >
       <v-icon>mdi-view-dashboard</v-icon>
-    </v-btn> -->
+    </v-btn>
 
     <!-- <v-menu
       bottom
@@ -108,7 +108,7 @@
       </v-list>
     </v-menu> -->
 
-    <!-- <v-menu
+    <v-menu
       bottom
       left
       min-width="200"
@@ -148,7 +148,7 @@
           </app-bar-item>
         </template>
       </v-list>
-    </v-menu> -->
+    </v-menu>
   </v-app-bar>
 </template>
 

@@ -40,5 +40,11 @@
   "user": "User Profile",
   "vforms": "Validation Forms",
   "widgets": "Widgets",
-  "wizard": "Wizard"
+  "wizard": "Wizard",
+  "ta": {
+    "ta": "TA",
+    "t_app": "Ticket App",
+    "tickets": "Tickets",
+    "register_ticket": "Registrar Tickets"
+  }
 }
