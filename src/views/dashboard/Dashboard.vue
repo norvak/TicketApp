@@ -387,21 +387,26 @@
             g = hueToRGB(p, q, hBase)
             b = hueToRGB(p, q, hBase - (1 / 3))
             var c = `#${rd(r).toString(16)}${rd(g).toString(16)}${rd(b).toString(16)}`
-            // end color
-
             const result = titlesAux.filter(element => element === x.title)
-            // console.log('result', result)
             if (result.length > 0) {
-              const valid = body.filter(e => e.name === key[result[0]])
-              // console.log('valid', valid)
-              if (valid.length === 0) {
-                body.push({
-                  name: key[result[0]],
-                  value: null,
-                  color: c,
-                })
+              const valid = body.filter(e => (e.name === key[result[0]]))
+              if (key[result[0]] !== undefined) {
+                if (!isNaN(key[result[0]])) {
+                  if (valid.length === 0) {
+                    body.push({
+                      name: key[result[0]],
+                      value: null,
+                      color: c,
+                    })
+                  }
+                } else if (valid.length === 0 && (key[result[0]]).trim() !== '') {
+                  body.push({
+                    name: key[result[0]],
+                    value: null,
+                    color: c,
+                  })
+                }
               }
-
               // var salario = Object.keys(key[result])
               // if (salario[1] === '#text') {
               //   var money = key.content['m:properties'][result]
@@ -548,45 +553,44 @@
       },
 
       // -- Metodos para consumir el endpoint
-      async loadData () {
-        try {
-          const respData = await axios.get(this.URL, {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-              'Content-Type': 'application/json',
-            },
-            mode: 'no-cors',
-          })
-          console.error('respData', respData)
-        } catch (error) {
-          console.error(error)
-        }
-      },
+      // async loadData () {
+      //   try {
+      //     const respData = await axios.get(this.URL, {
+      //       headers: {
+      //         'Access-Control-Allow-Origin': '*',
+      //         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      //         'Content-Type': 'application/json',
+      //       },
+      //       mode: 'no-cors',
+      //     })
+      //     console.error('respData', respData)
+      //   } catch (error) {
+      //     console.error(error)
+      //   }
+      // },
 
-      loadTest () {
-        console.log('loadTest')
-        var miInit = {
-          method: 'GET',
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            Accept: 'application/json',
-            'Accept-Encoding': 'identity',
-            'Content-Type': 'application/json',
-          },
-          mode: 'no-cors',
-          cache: 'default',
-        }
-        const userAction = fetch(this.URL, miInit).then((resp) => resp.json())
-          .then(function (data) {
-            console.log('data', data)
-          })
-          .catch(function (error) {
-            console.log('error', error)
-          })
-        console.log('respData', userAction)
-      },
+      // loadTest () {
+      //   var miInit = {
+      //     method: 'GET',
+      //     headers: {
+      //       'Access-Control-Allow-Origin': '*',
+      //       'Access-Control-Allow-Headers': 'Content-Type',
+      //       Accept: 'application/json',
+      //       'Accept-Encoding': 'identity',
+      //       'Content-Type': 'application/json',
+      //     },
+      //     mode: 'no-cors',
+      //     cache: 'default',
+      //   }
+      //   const userAction = fetch(this.URL, miInit).then((resp) => resp.json())
+      //     .then(function (data) {
+      //       console.log('data', data)
+      //     })
+      //     .catch(function (error) {
+      //       console.log('error', error)
+      //     })
+      //   console.log('respData', userAction)
+      // },
 
       // ----
 
@@ -721,7 +725,7 @@
         var body = this.body
         var entryFinal = []
         var auxBody = []
-        // this.animationUnselect()
+
         listSelect.forEach(function (e) {
           listFilter.forEach(function (a) {
             var nameColor = a.title
