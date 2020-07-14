@@ -1,24 +1,35 @@
 <template>
-  <!-- <v-container
+  <v-container
     v-if="valid"
     id="dashboard"
     fluid
     tag="section"
   >
-    <v-row align="center">
-      <v-col
-        v-for="(item, i) in titles"
-        :key="i"
-        md="2"
+    <!-- Checks -->
+    <v-card
+      style="max-height: 200px; background-image: linear-gradient(to right top, #81d0ce, #71c7c5, #5fbebb, #4db5b2, #37aca9, #37aca9, #37aca9, #37aca9, #4db5b2, #5fbebb, #71c7c5, #81d0ce);"
+      class="overflow-y-auto pa-4"
+      max-width="100%"
+    >
+      <v-row
+        align="center"
       >
-        <v-switch
-          v-model="filterItems"
-          :label="item.title"
-          :value="item"
-          color="black"
-        />
-      </v-col>
-    </v-row>
+        <v-col
+          v-for="(item, i) in mapTitles"
+          :key="i"
+          md="3"
+        >
+          <v-switch
+            v-model="filterItems"
+            :label="item.title"
+            :value="item"
+            color="black"
+            dense
+          />
+        </v-col>
+      </v-row>
+    </v-card>
+    <!-- Selection list -->
     <v-row>
       <v-col
         cols="12"
@@ -32,9 +43,10 @@
           md="12"
           class="no-padding"
         >
-          <v-divider />
+          <!-- <v-divider /> -->
           <v-card
-            class="v-card--wizard no-margin is-selected"
+            class="v-card--wizard no-margin is-selected mb-2 overflow-x-auto"
+            style="background-image: linear-gradient(to right top, #81d0ce, #71c7c5, #5fbebb, #4db5b2, #37aca9, #37aca9, #37aca9, #37aca9, #4db5b2, #5fbebb, #71c7c5, #81d0ce);"
             elevation="12"
             max-width="700"
           >
@@ -53,6 +65,7 @@
                     :label="item.column.name"
                     :value="item.column.value"
                     color="black"
+                    dense
                     @change="selectColumn($event, i, item)"
                   />
                 </v-col>
@@ -66,6 +79,7 @@
                     :label="item.color.name"
                     :value="item.color.value"
                     color="black"
+                    dense
                     @change="selectColor($event, i, item)"
                   />
                 </v-col>
@@ -99,6 +113,7 @@
                           :label="datos.name"
                           :value="datos.value"
                           color="black"
+                          dense
                           @change="selectList(i, datos, pos, $event)"
                         />
                       </v-col>
@@ -145,9 +160,10 @@
               >
                 <v-card
                   id="card-list"
-                  :class="group.group ? 'v-card--wizard no-margin pa-0 card-list is-select': 'v-card--wizard no-margin pa-0'"
+                  :class="group.group ? 'v-card--wizard no-margin pa-0 card-list overflow-y-auto is-select': 'v-card--wizard no-margin pa-0'"
                   elevation="4"
                   color="#F2F2F2"
+                  :style="group.group ? 'background-image: linear-gradient(to right top, #81d0ce, #71c7c5, #5fbebb, #4db5b2, #37aca9, #37aca9, #37aca9, #37aca9, #4db5b2, #5fbebb, #71c7c5, #81d0ce);' : ''"
                 >
                   <v-card-title
                     v-if="group.group"
@@ -156,72 +172,65 @@
                     {{ group.group }}
                   </v-card-title>
 
+                  <!--  -->
                   <v-dialog
                     v-else
                     v-model="dialog[index]"
-                    width="350"
+                    width="450"
                   >
                     <template v-slot:activator="{ on }">
                       <v-card
-                        class="v-card--wizard no-margin justify-center add-padding-cards item-card pointer    "
+                        class="v-card--wizard no-margin justify-center add-padding-cards item-card pointer"
                         elevation="4"
                         :color="(group.color ? group.color : '#F2F2F2')"
                         v-on="on"
                       >
-                        <v-card-title
-                          class="justify-center display-2 font-weight-light pt-5"
-                        >
-                          {{ group.Candidato }}
-                        </v-card-title>
+                        <v-card-text class="display-1 pt-5">
+                          <p class="justify-center text-h5 font-weight-medium">
+                            {{ 'Ticket Nro: ' + group.TicketID }}
+                          </p>
+                          <p class="justify-center text-body-1">
+                            {{ 'Prioridad: ' + group.priority }}
+                          </p>
+                          <p class="justify-center text-body-1">
+                            {{ 'Company: ' + group.customerCompany }}
+                          </p>
+                        </v-card-text>
                       </v-card>
                     </template>
                     <v-card>
-                      <v-card-title
-                        class="headline grey lighten-2"
-                        primary-title
+                      <v-toolbar
+                        :color="(group.color ? group.color : 'linear-gradient(to right top, #81d0ce, #71c7c5, #5fbebb, #4db5b2, #37aca9, #37aca9, #37aca9, #37aca9, #4db5b2, #5fbebb, #71c7c5, #81d0ce)')"
+                        dark
                       >
-                        Información
-                      </v-card-title>
+                        <v-toolbar-title
+                          class="headline lighten-2"
+                        >
+                          {{ 'Info' }}
+                        </v-toolbar-title>
+                      </v-toolbar>
 
-                      <v-card-text class="justify-center">
-                        <p class="justify-center">
-                          {{ 'Candidato: ' + group.Candidato }}
-                        </p>
-                        <p class="justify-center">
-                          {{ 'Posición: ' + group.Posicion }}
-                        </p>
-                        <p class="justify-center">
-                          {{ 'Reclutador: ' + group.Reclutador }}
-                        </p>
-                        <p class="justify-center">
-                          {{ 'Salario: ' + group.Salario }}
-                        </p>
-                        <p class="justify-center">
-                          {{ 'Seniority: ' + group.Seniority }}
+                      <v-card-text
+                        class="justify-center overflow-y-auto"
+                        style="max-height: 350px;"
+                      >
+                        <p
+                          v-for="(item, i) in titles"
+                          :key="i"
+                          class="text-justify"
+                        >
+                          {{ (group[item] ? item + ': ' + group[item] : item + ': ') }}
                         </p>
                       </v-card-text>
-
-                      <v-divider />
-
-                      <v-card-actions>
-                        <v-spacer />
-                        <v-btn
-                          color="primary"
-                          text
-                          @click="dialog[index] = false"
-                        >
-                          I accept
-                        </v-btn>
-                      </v-card-actions>
                     </v-card>
                   </v-dialog>
-
+                  <!-- else -->
                   <v-card-text
                     v-if="group.group"
                   >
                     <v-container
                       id="text"
-                      class="padding-container"
+                      class="padding-container card-list"
                       fluid
                     >
                       <v-row>
@@ -229,17 +238,59 @@
                           v-for="(item, ind) in group.body"
                           :key="ind"
                           cols="12"
-                          md="4"
+                          md="6"
                           class="padding-column"
                         >
-                          <v-card
-                            class="v-card--wizard no-margin justify-center add-padding-cards item pointer"
-                            :color="(item.color ? item.color : 'white')"
+                          <v-dialog
+                            v-model="dialog[index]"
+                            width="450"
                           >
-                            <v-card-title class="justify-center display-2 font-weight-light font-resp is-selected">
-                              {{ item.Candidato }}
-                            </v-card-title>
-                          </v-card>
+                            <template v-slot:activator="{ on }">
+                              <v-card
+                                class="v-card--wizard no-margin justify-center add-padding-cards item pointer"
+                                :color="(item.color ? item.color : 'white')"
+                                elevation="2"
+                                v-on="on"
+                              >
+                                <v-card-text class="display-1 pt-5">
+                                  <p class="justify-center subtitle-2 font-weight-medium">
+                                    {{ 'Ticket Nro: ' + item.TicketID }}
+                                  </p>
+                                  <!-- <p class="justify-center text-body-2">
+                                    {{ 'Prioridad: ' + item.priority }}
+                                  </p>
+                                  <p class="justify-center text-body-2">
+                                    {{ 'Company: ' + item.customerCompany }}
+                                  </p> -->
+                                </v-card-text>
+                              </v-card>
+                            </template>
+                            <v-card>
+                              <v-toolbar
+                                :color="(item.color ? item.color : '#F2F2F2')"
+                                dark
+                              >
+                                <v-toolbar-title
+                                  class="headline lighten-2"
+                                >
+                                  {{ 'Info' }}
+                                </v-toolbar-title>
+                              </v-toolbar>
+
+                              <v-card-text
+                                class="justify-center overflow-y-auto"
+                                style="max-height: 350px;"
+                              >
+                                <p
+                                  v-for="(itemAux, i) in titles"
+                                  :key="i"
+                                  class="text-justify"
+                                >
+                                  {{ (item[itemAux] ? itemAux + ': ' + item[itemAux] : itemAux + ': ') }}
+                                </p>
+                              </v-card-text>
+                            </v-card>
+                          </v-dialog>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -251,7 +302,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+    <!-- </v-container>
   <v-container
     v-else
     id="error"
@@ -270,17 +321,6 @@
       </v-card-title>
     </v-card>
   </v-container> -->
-  <v-container
-    id="test"
-    fluid
-  >
-    <v-card
-      color="#F2F2F2"
-    >
-      <v-card-title>
-        Tickets
-      </v-card-title>
-    </v-card>
   </v-container>
 </template>
 
@@ -296,128 +336,146 @@
         expand: true,
         filterItems: [],
         selectFilter: [],
+        mapTitles: [],
         titles: [],
         changeSelect: [],
         body: [],
         entryFinal: [],
         resp_data: [],
         entry: [],
-        valid: false,
+        valid: true,
         sortList: null,
         data: null,
         URL: 'https://pivottableview.blob.core.windows.net/muck/getticket.json',
       }
     },
     computed: {
-      // dialog () {
-      //   return new Array(this.entryFinal.length)
-      // },
+      dialog () {
+        return new Array(this.entryFinal.length)
+      },
     },
     watch: {
-      // filterItems (a, b) {
-      //   var arr = this.entry
-      //   this.selectFilter = []
-      //   this.body = []
-      //   var data = []
-      //   var entry = []
-      //   this.entryFinal = []
-      //   a.map(function (x) {
-      //     var body = []
-      //     arr.forEach((key, i) => {
-      //       var data = Object.keys(key.content['m:properties'])
-      //       const result = data.filter(element => element === 'd:' + x.title)
+      filterItems (a, b) {
+        var arr = this.entry.value
+        // console.log('arr', arr)
+        this.selectFilter = []
+        this.body = []
+        var data = []
+        // var entry = []
+        this.entryFinal = []
+        const titlesAux = this.titles
 
-      //       // init color
-      //       const hBase = Math.random()
-      //       const newL = (Math.floor(Math.random() * 16) + 75) * 0.01
-      //       var r, g, b
-      //       const rd = (a) => {
-      //         return Math.floor(Math.max(Math.min(a * 256, 255), 0))
-      //       }
-      //       const hueToRGB = (m, n, o) => {
-      //         if (o < 0) o += 1
-      //         if (o > 1) o -= 1
-      //         if (o < 1 / 6) return m + (n - m) * 6 * o
-      //         if (o < 1 / 2) return n
-      //         if (o < 2 / 3) return m + (n - m) * (4 - o * 6)
-      //         return m
-      //       }
-      //       const q = newL < 0.5 ? newL * 2 : 1
-      //       const p = 2 * newL - q
-      //       r = hueToRGB(p, q, hBase + (1 / 3))
-      //       g = hueToRGB(p, q, hBase)
-      //       b = hueToRGB(p, q, hBase - (1 / 3))
-      //       var c = `#${rd(r).toString(16)}${rd(g).toString(16)}${rd(b).toString(16)}`
-      //       // end color
+        a.map(function (x) {
+          var body = []
+          arr.forEach((key, i) => {
+            // init color
+            const hBase = Math.random()
+            const newL = (Math.floor(Math.random() * 16) + 75) * 0.01
+            var r, g, b
+            const rd = (a) => {
+              return Math.floor(Math.max(Math.min(a * 256, 255), 0))
+            }
+            const hueToRGB = (m, n, o) => {
+              if (o < 0) o += 1
+              if (o > 1) o -= 1
+              if (o < 1 / 6) return m + (n - m) * 6 * o
+              if (o < 1 / 2) return n
+              if (o < 2 / 3) return m + (n - m) * (4 - o * 6)
+              return m
+            }
+            const q = newL < 0.5 ? newL * 2 : 1
+            const p = 2 * newL - q
+            r = hueToRGB(p, q, hBase + (1 / 3))
+            g = hueToRGB(p, q, hBase)
+            b = hueToRGB(p, q, hBase - (1 / 3))
+            var c = `#${rd(r).toString(16)}${rd(g).toString(16)}${rd(b).toString(16)}`
+            // end color
 
-      //       if (result.length > 0) {
-      //         var salario = Object.keys(key.content['m:properties'][result])
-      //         if (salario[1] === '#text') {
-      //           var money = key.content['m:properties'][result]
-      //           const valid = body.filter(e => e.name === money['#text'])
-      //           if (valid.length === 0) {
-      //             body.push({
-      //               name: money['#text'],
-      //               value: null,
-      //               color: c,
-      //             })
-      //           }
-      //         } else {
-      //           const validName = body.filter(e => e.name === key.content['m:properties'][result])
-      //           if (validName.length === 0) {
-      //             body.push({
-      //               name: key.content['m:properties'][result],
-      //               value: null,
-      //               color: c,
-      //             })
-      //           }
-      //         }
-      //       }
-      //     })
-      //     data.push({
-      //       title: x.title,
-      //       column: {
-      //         name: 'Columna',
-      //         value: null,
-      //       },
-      //       color: {
-      //         name: 'Color',
-      //         value: null,
-      //       },
-      //       body: body,
-      //     })
-      //   })
-      //   const removeItems = ['d:PartitionKey', 'd:RowKey', 'd:Timestamp']
-      //   arr.forEach((key, i) => {
-      //     var data = Object.keys(key.content['m:properties'])
-      //     // eslint-disable-next-line no-new-object
-      //     var salida = new Object()
-      //     for (let index = 0; index < data.length; index++) {
-      //       this.titles.forEach((element, e) => {
-      //         salida[element.title] = key.content['m:properties']['d:' + element.title]
-      //       })
-      //     }
-      //     salida = this.formatObj(salida, removeItems)
-      //     entry.push(salida)
-      //   })
-      //   entry.map(function (params) {
-      //     params = Object.assign(params, { color: null })
-      //     // eslint-disable-next-line dot-notation
-      //     if (params['Salario']) {
-      //       // eslint-disable-next-line dot-notation
-      //       params['Salario'] = params['Salario']['#text']
-      //     }
-      //   })
-      //   this.body = entry
-      //   this.selectFilter = data
-      //   this.changeSelect = []
-      // },
+            const result = titlesAux.filter(element => element === x.title)
+            // console.log('result', result)
+            if (result.length > 0) {
+              const valid = body.filter(e => e.name === key[result[0]])
+              // console.log('valid', valid)
+              if (valid.length === 0) {
+                body.push({
+                  name: key[result[0]],
+                  value: null,
+                  color: c,
+                })
+              }
+
+              // var salario = Object.keys(key[result])
+              // if (salario[1] === '#text') {
+              //   var money = key.content['m:properties'][result]
+              //   const valid = body.filter(e => e.name === money['#text'])
+              //   if (valid.length === 0) {
+              //     body.push({
+              //       name: money['#text'],
+              //       value: null,
+              //       color: c,
+              //     })
+              //   }
+              // } else {
+              //   const validName = body.filter(e => e.name === key.content['m:properties'][result])
+              //   if (validName.length === 0) {
+              //     body.push({
+              //       name: key.content['m:properties'][result],
+              //       value: null,
+              //       color: c,
+              //     })
+              //   }
+              // }
+            }
+          })
+          data.push({
+            title: x.title,
+            column: {
+              name: 'Columna',
+              value: null,
+            },
+            color: {
+              name: 'Color',
+              value: null,
+            },
+            body: body,
+          })
+        })
+
+        // const removeItems = ['PartitionKey', 'RowKey', 'Timestamp']
+        // arr.forEach((key, i) => {
+        //   var data = Object.keys(key.content['m:properties'])
+        //   var salida = {}
+        //   for (let index = 0; index < data.length; index++) {
+        //     this.titles.forEach((element, e) => {
+        //       salida[element.title] = key.content['m:properties']['d:' + element.title]
+        //     })
+        //   }
+        //   salida = this.formatObj(salida, removeItems)
+        //   entry.push(salida)
+        //  })
+
+        // entry.map(function (params) {
+        //   params = Object.assign(params, { color: null })
+        //   // eslint-disable-next-line dot-notation
+        //   if (params['Salario']) {
+        //     // eslint-disable-next-line dot-notation
+        //     params['Salario'] = params['Salario']['#text']
+        //   }
+        // })
+        this.body = arr
+        this.selectFilter = data
+        this.changeSelect = []
+        console.log('body', this.body)
+        console.log('selectFilter', this.selectFilter)
+      },
     },
     async mounted () {
       console.log('mounted')
-      this.data = require('../../data/data.json')
-      this.removeFields(this.data.value)
-      console.log('data', this.data)
+      this.entry = require('../../data/data.json')
+      this.removeFields(this.entry.value)
+      this.headersTitle()
+      // console.log('data', this.entry)
+      // console.log('titles', this.titles)
 
       // try {
       //   const respData = await axios.get('http://www.mocky.io/v2/5e9a015c3300003e267b2e3d')
@@ -446,11 +504,9 @@
         objects.forEach(element => {
           const propeties = Object.keys(element)
           propeties.forEach((item, i) => {
-            // console.log(i, item)
             if (item.includes('@') || item.includes('.')) {
-              // console.log('si')
               delete element[item]
-            }
+            } else if (!this.titles.includes(item)) this.titles.push(item)
           })
         })
       },
@@ -499,14 +555,10 @@
       // ----
 
       headersTitle () {
-        const keys = Object.keys(this.entry[0].content['m:properties'])
-        keys.forEach(key => {
-          const aux = key.split(':')[1]
-          if (aux !== 'PartitionKey' && aux !== 'RowKey' && aux !== 'Timestamp') {
-            this.titles.push({
-              title: aux,
-              value: false,
-            })
+        this.mapTitles = this.titles.map(element => {
+          return {
+            title: element,
+            value: false,
           }
         })
       },
@@ -668,7 +720,7 @@
 
         if (entryFinal.length === 0) {
           this.entryFinal = []
-          // this.animationUnselect()
+          this.animationUnselect()
           this.entryFinal = this.sortColor(body)
         } else {
           entryFinal.forEach(aux => {
@@ -676,6 +728,7 @@
           })
           this.entryFinal = entryFinal
         }
+        console.log('entryFinal', this.entryFinal)
       },
       sortColor (array) {
         return array.sort((a, b) => {
