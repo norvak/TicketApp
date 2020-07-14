@@ -21,7 +21,7 @@
         >
           <v-switch
             v-model="filterItems"
-            :label="item.title"
+            :label="transformLabel(item.title)"
             :value="item"
             color="black"
             dense
@@ -61,7 +61,7 @@
                   <v-switch
                     v-model="item.column.value"
                     class="mx-2"
-                    :label="item.column.name"
+                    :label="transformLabel(item.column.name)"
                     :value="item.column.value"
                     color="black"
                     dense
@@ -75,7 +75,7 @@
                   <v-switch
                     v-model="item.color.value"
                     class="mx-2"
-                    :label="item.color.name"
+                    :label="transformLabel(item.color.name)"
                     :value="item.color.value"
                     color="black"
                     dense
@@ -109,7 +109,7 @@
                         <v-switch
                           v-model="datos.value"
                           class="mx-2 margin-checkbox"
-                          :label="datos.name"
+                          :label="transformLabel(datos.name)"
                           :value="datos.value"
                           color="black"
                           dense
@@ -353,7 +353,6 @@
     watch: {
       filterItems (a, b) {
         var arr = this.entry.value
-        // console.log('arr', arr)
         this.selectFilter = []
         this.body = []
         var data = []
@@ -405,27 +404,6 @@
                   })
                 }
               }
-              // var salario = Object.keys(key[result])
-              // if (salario[1] === '#text') {
-              //   var money = key.content['m:properties'][result]
-              //   const valid = body.filter(e => e.name === money['#text'])
-              //   if (valid.length === 0) {
-              //     body.push({
-              //       name: money['#text'],
-              //       value: null,
-              //       color: c,
-              //     })
-              //   }
-              // } else {
-              //   const validName = body.filter(e => e.name === key.content['m:properties'][result])
-              //   if (validName.length === 0) {
-              //     body.push({
-              //       name: key.content['m:properties'][result],
-              //       value: null,
-              //       color: c,
-              //     })
-              //   }
-              // }
             }
           })
           data.push({
@@ -466,8 +444,6 @@
         this.body = arr
         this.selectFilter = data
         this.changeSelect = []
-        console.log('body', this.body)
-        console.log('selectFilter', this.selectFilter)
       },
     },
     async mounted () {
@@ -475,61 +451,6 @@
       this.entry = require('../../data/data.json')
       this.removeFields(this.entry.value)
       this.headersTitle()
-      // console.log('data', this.entry)
-      console.log('titles', this.titles)
-
-      // try {
-      // const respData = await axios.get('https://pivottableview.blob.core.windows.net/muck/getticket.json')
-      // const baseUrl = 'https://pivottableview.blob.core.windows.net/muck/getticket.json'
-      // const axiosConfig = {
-      //   crossdomain: true,
-      // headers: {
-      //   'Access-Control-Allow-Origin': '*',
-      //   'Access-Control-Allow-Headers': 'Content-Type',
-      //   Accept: 'application/json',
-      //   'Content-Type': 'application/json',
-      // },
-      // }
-      // const userAction = async () => {
-      //   const response = await fetch('https://pivottableview.blob.core.windows.net/muck/getticket.json')
-      //   const myJson = await response.json()
-      //   console.log('myJson', myJson)
-      // }
-      var miInit = {
-        method: 'GET',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          Accept: 'application/json',
-          'Accept-Encoding': 'identity',
-          'Content-Type': 'application/json',
-        },
-        mode: 'cors',
-        cache: 'default',
-      }
-      const userAction = fetch('https://pivottableview.blob.core.windows.net/muck/getticket.json', miInit).then((resp) => resp.json())
-        .then(function (data) {
-          console.log(data)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
-      // const respData = axios.get(baseUrl, axiosConfig)
-      //   .then(response => {
-      //     console.log('response----->', response)
-      //   })
-      //   .catch(error => {
-      //     console.log('error----->', error)
-      //   })
-      console.log('respData', userAction)
-      // this.resp_data = respData.data.data.entry
-      // this.entry = respData.data.data.entry
-      this.valid = true
-      // } catch (error) {
-      //   console.error(error)
-      //   this.valid = false
-      // }
-      // this.headersTitle()
     },
     beforeUpdate () {
       // this.animationUnselect()
@@ -538,67 +459,29 @@
       this.animationSelect()
     },
     methods: {
-
       removeFields (objects) {
         objects.forEach(element => {
           const propeties = Object.keys(element)
           propeties.forEach((item, i) => {
-            if (item.includes('@') || item.includes('.')) {
+            if (item.includes('@') || item.includes('.') || item.includes('PartitionKey') || item.includes('RowKey') || item.includes('Timestamp') || item.includes('IDFacebookProfile') || (element[item] === '')) {
               delete element[item]
             } else if (!this.titles.includes(item)) this.titles.push(item)
           })
         })
       },
-
-      // -- Metodos para consumir el endpoint
-      // async loadData () {
-      //   try {
-      //     const respData = await axios.get(this.URL, {
-      //       headers: {
-      //         'Access-Control-Allow-Origin': '*',
-      //         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      //         'Content-Type': 'application/json',
-      //       },
-      //       mode: 'no-cors',
-      //     })
-      //     console.error('respData', respData)
-      //   } catch (error) {
-      //     console.error(error)
-      //   }
-      // },
-
-      // loadTest () {
-      //   var miInit = {
-      //     method: 'GET',
-      //     headers: {
-      //       'Access-Control-Allow-Origin': '*',
-      //       'Access-Control-Allow-Headers': 'Content-Type',
-      //       Accept: 'application/json',
-      //       'Accept-Encoding': 'identity',
-      //       'Content-Type': 'application/json',
-      //     },
-      //     mode: 'no-cors',
-      //     cache: 'default',
-      //   }
-      //   const userAction = fetch(this.URL, miInit).then((resp) => resp.json())
-      //     .then(function (data) {
-      //       console.log('data', data)
-      //     })
-      //     .catch(function (error) {
-      //       console.log('error', error)
-      //     })
-      //   console.log('respData', userAction)
-      // },
-
-      // ----
-
       headersTitle () {
         this.mapTitles = this.titles.map(element => {
-          return {
-            title: element,
-            value: false,
+          if (element !== 'color') {
+            return {
+              title: element,
+              value: false,
+            }
           }
         })
+      },
+      transformLabel (value) {
+        if (typeof (value) === 'string') return value
+        else return value.toString()
       },
       otherRandomColor () {
         const a = '#' + ('00000' + (Math.random() * (1 << 24) | 0).toString(16)).slice(-6)
@@ -619,6 +502,7 @@
           const share = (element) => element.position === index
           var i = this.changeSelect.findIndex(share)
           this.changeSelect[i].list = []
+          event.body.forEach(ckeck => { ckeck.value = true })
           this.body.forEach(e => { e.color = null })
           this.changeSelect.forEach(val => {
             arraySelectFilter.forEach((params, i) => {
