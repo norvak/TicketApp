@@ -7,7 +7,7 @@
   >
     <!-- Checks -->
     <v-card
-      style="max-height: 200px; background-image: linear-gradient(to right top, #81d0ce, #71c7c5, #5fbebb, #4db5b2, #37aca9, #37aca9, #37aca9, #37aca9, #4db5b2, #5fbebb, #71c7c5, #81d0ce);"
+      style="max-height: 200px;"
       class="overflow-y-auto pa-4"
       max-width="100%"
     >
@@ -46,7 +46,6 @@
           <!-- <v-divider /> -->
           <v-card
             class="v-card--wizard no-margin is-selected mb-2 overflow-x-auto"
-            style="background-image: linear-gradient(to right top, #81d0ce, #71c7c5, #5fbebb, #4db5b2, #37aca9, #37aca9, #37aca9, #37aca9, #4db5b2, #5fbebb, #71c7c5, #81d0ce);"
             elevation="12"
             max-width="700"
           >
@@ -163,7 +162,6 @@
                   :class="group.group ? 'v-card--wizard no-margin pa-0 card-list overflow-y-auto is-select': 'v-card--wizard no-margin pa-0'"
                   elevation="4"
                   color="#F2F2F2"
-                  :style="group.group ? 'background-image: linear-gradient(to right top, #81d0ce, #71c7c5, #5fbebb, #4db5b2, #37aca9, #37aca9, #37aca9, #37aca9, #4db5b2, #5fbebb, #71c7c5, #81d0ce);' : ''"
                 >
                   <v-card-title
                     v-if="group.group"
@@ -200,7 +198,7 @@
                     </template>
                     <v-card>
                       <v-toolbar
-                        :color="(group.color ? group.color : 'linear-gradient(to right top, #81d0ce, #71c7c5, #5fbebb, #4db5b2, #37aca9, #37aca9, #37aca9, #37aca9, #4db5b2, #5fbebb, #71c7c5, #81d0ce)')"
+                        :color="(group.color ? group.color : '')"
                         dark
                       >
                         <v-toolbar-title
@@ -475,7 +473,7 @@
       this.removeFields(this.entry.value)
       this.headersTitle()
       // console.log('data', this.entry)
-      // console.log('titles', this.titles)
+      console.log('titles', this.titles)
 
       // try {
       //   const respData = await axios.get('http://www.mocky.io/v2/5e9a015c3300003e267b2e3d')
