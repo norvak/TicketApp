@@ -224,11 +224,7 @@
                       </v-card-text>
                     </v-card>
                   </v-dialog>
-<<<<<<< HEAD
-                  <!--  -->
-=======
                   <!-- else -->
->>>>>>> a212ecb4ff16c2b92aad22c36c79b9f0c4f60e57
                   <v-card-text
                     v-if="group.group"
                   >
@@ -324,10 +320,7 @@
         {{ 'Esperando datos' }}
       </v-card-title>
     </v-card>
-<<<<<<< HEAD
-=======
   </v-container> -->
->>>>>>> a212ecb4ff16c2b92aad22c36c79b9f0c4f60e57
   </v-container>
 </template>
 
@@ -361,104 +354,6 @@
     },
     watch: {
       filterItems (a, b) {
-<<<<<<< HEAD
-        var arr = this.entry
-        this.selectFilter = []
-        this.body = []
-        var data = []
-        var entry = []
-        this.entryFinal = []
-        a.map(function (x) {
-          var body = []
-          arr.forEach((key, i) => {
-            var data = Object.keys(key.content['m:properties'])
-            const result = data.filter(element => element === 'd:' + x.title)
-
-            // init color
-            const hBase = Math.random()
-            const newL = (Math.floor(Math.random() * 16) + 75) * 0.01
-            var r, g, b
-            const rd = (a) => {
-              return Math.floor(Math.max(Math.min(a * 256, 255), 0))
-            }
-            const hueToRGB = (m, n, o) => {
-              if (o < 0) o += 1
-              if (o > 1) o -= 1
-              if (o < 1 / 6) return m + (n - m) * 6 * o
-              if (o < 1 / 2) return n
-              if (o < 2 / 3) return m + (n - m) * (4 - o * 6)
-              return m
-            }
-            const q = newL < 0.5 ? newL * 2 : 1
-            const p = 2 * newL - q
-            r = hueToRGB(p, q, hBase + (1 / 3))
-            g = hueToRGB(p, q, hBase)
-            b = hueToRGB(p, q, hBase - (1 / 3))
-            var c = `#${rd(r).toString(16)}${rd(g).toString(16)}${rd(b).toString(16)}`
-            // end color
-
-            if (result.length > 0) {
-              var salario = Object.keys(key.content['m:properties'][result])
-              if (salario[1] === '#text') {
-                var money = key.content['m:properties'][result]
-                const valid = body.filter(e => e.name === money['#text'])
-                if (valid.length === 0) {
-                  body.push({
-                    name: money['#text'],
-                    value: null,
-                    color: c,
-                  })
-                }
-              } else {
-                const validName = body.filter(e => e.name === key.content['m:properties'][result])
-                if (validName.length === 0) {
-                  body.push({
-                    name: key.content['m:properties'][result],
-                    value: null,
-                    color: c,
-                  })
-                }
-              }
-            }
-          })
-          data.push({
-            title: x.title,
-            column: {
-              name: 'Columna',
-              value: null,
-            },
-            color: {
-              name: 'Color',
-              value: null,
-            },
-            body: body,
-          })
-        })
-        const removeItems = ['d:PartitionKey', 'd:RowKey', 'd:Timestamp']
-        arr.forEach((key, i) => {
-          var data = Object.keys(key.content['m:properties'])
-          // eslint-disable-next-line no-new-object
-          var salida = new Object()
-          for (let index = 0; index < data.length; index++) {
-            this.titles.forEach((element, e) => {
-              salida[element.title] = key.content['m:properties']['d:' + element.title]
-            })
-          }
-          salida = this.formatObj(salida, removeItems)
-          entry.push(salida)
-        })
-        entry.map(function (params) {
-          params = Object.assign(params, { color: null })
-          // eslint-disable-next-line dot-notation
-          if (params['Salario']) {
-            // eslint-disable-next-line dot-notation
-            params['Salario'] = params['Salario']['#text']
-          }
-        })
-        this.body = entry
-        this.selectFilter = data
-        this.changeSelect = []
-=======
         var arr = this.entry.value
         // console.log('arr', arr)
         this.selectFilter = []
@@ -570,7 +465,6 @@
         this.changeSelect = []
         console.log('body', this.body)
         console.log('selectFilter', this.selectFilter)
->>>>>>> a212ecb4ff16c2b92aad22c36c79b9f0c4f60e57
       },
     },
     async mounted () {
